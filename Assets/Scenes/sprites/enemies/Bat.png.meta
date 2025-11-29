@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fe99a24609d752a4aaafdccf6e21ed67
+guid: af466cf00a19c7d4fa72b050b85b464a
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,253 +97,316 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: slime_green_0
+      name: Bat_0
       rect:
         serializedVersion: 2
-        x: 5
-        y: 48
-        width: 14
-        height: 9
+        x: 3
+        y: 151
+        width: 43
+        height: 37
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: add54fed44f7b4c469ce0db09063f9bb
-      internalID: 1286062369
+      spriteID: 678967cd6dd08c147a8a221e19cb772b
+      internalID: 1469097202
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime_green_1
+      name: Bat_1
       rect:
         serializedVersion: 2
-        x: 29
-        y: 48
-        width: 14
-        height: 10
+        x: 51
+        y: 148
+        width: 42
+        height: 37
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7777b08070bf4654c8b53c0ad045959e
-      internalID: 456332637
+      spriteID: 7a073c800f9389c479e0be0ccdffb5f2
+      internalID: 933641828
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime_green_2
+      name: Bat_2
       rect:
         serializedVersion: 2
-        x: 53
-        y: 48
-        width: 14
-        height: 11
+        x: 100
+        y: 147
+        width: 40
+        height: 36
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9f84093cbce730c4e9d401d9fddcd707
-      internalID: 1922541367
+      spriteID: d899aba4f02b12647b8afea325b103f5
+      internalID: -1063202345
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime_green_3
+      name: Bat_3
       rect:
         serializedVersion: 2
-        x: 77
-        y: 48
-        width: 14
-        height: 12
+        x: 147
+        y: 148
+        width: 42
+        height: 37
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7074c2f45b0f31641994bf2fb72ad2c7
-      internalID: 1626715808
+      spriteID: 280004243b7d2cd46824da28da6eb30b
+      internalID: -330719526
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime_green_4
+      name: Bat_4
       rect:
         serializedVersion: 2
-        x: 5
-        y: 24
-        width: 14
-        height: 12
+        x: 196
+        y: 151
+        width: 40
+        height: 35
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6df419b766de86447acef8c50e562cf5
-      internalID: -2028071277
+      spriteID: 28233cba515c544488a2429924cdc2ec
+      internalID: -398734067
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime_green_5
+      name: Bat_5
       rect:
         serializedVersion: 2
-        x: 29
-        y: 24
-        width: 14
+        x: 4
+        y: 103
+        width: 40
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a1f691b3b0da2d428b31547d625266b
+      internalID: -206597102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bat_6
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 102
+        width: 44
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2066fe75fd5a8c149a9b4f6f59a4989f
+      internalID: 1828491421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bat_7
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 102
+        width: 42
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64e542a5179f89c42a353019e8820006
+      internalID: 993792403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bat_8
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 56
+        width: 42
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b39b857040fcda948ba08f4bf0f80120
+      internalID: 1808733908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bat_9
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 55
+        width: 38
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9151f2d7ad20c041a35b8b32c990868
+      internalID: -739434284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bat_10
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 8
+        width: 38
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8c5e4fe93520bb41813e2009600d676
+      internalID: 613992883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bat_11
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 8
+        width: 41
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abf3188e68579654bafc92b37bd6706b
+      internalID: 770036148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bat_12
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 6
+        width: 40
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 090627c03c8fb144a9e815e524b0a7e9
+      internalID: -2009116085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bat_13
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 8
+        width: 40
         height: 14
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 56429c96e210f834c8207606506d2ce5
-      internalID: -1546886010
+      spriteID: 7ef4096a6e216944fa3d5d8e5768e4a8
+      internalID: -1333774741
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slime_green_6
+      name: Bat_14
       rect:
         serializedVersion: 2
-        x: 53
-        y: 24
-        width: 14
+        x: 195
+        y: 8
+        width: 40
         height: 15
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6f91c8634b34ad24899142307fde5096
-      internalID: 798148837
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slime_green_7
-      rect:
-        serializedVersion: 2
-        x: 77
-        y: 24
-        width: 14
-        height: 13
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e84c3a2337f317e4c9146b25002444cc
-      internalID: -1883097991
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slime_green_8
-      rect:
-        serializedVersion: 2
-        x: 5
-        y: 0
-        width: 14
-        height: 15
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1acb5ecddae1cd143bdc197ca3ac7922
-      internalID: 2040575405
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slime_green_9
-      rect:
-        serializedVersion: 2
-        x: 29
-        y: 0
-        width: 14
-        height: 13
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a8f83087f56676f4ea142328c1703513
-      internalID: -2007481545
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slime_green_10
-      rect:
-        serializedVersion: 2
-        x: 53
-        y: 0
-        width: 14
-        height: 13
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 57aab466084ed2c4185e9d0f902271ed
-      internalID: 1672384517
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: slime_green_11
-      rect:
-        serializedVersion: 2
-        x: 77
-        y: 0
-        width: 14
-        height: 13
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b15722bf7d138a2469ffa40a89628ede
-      internalID: -995140738
+      spriteID: 835130ae03d77f344bcc401be753d967
+      internalID: 1661830194
       vertices: []
       indices: 
       edges: []
@@ -359,18 +422,21 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      slime_green_0: 1286062369
-      slime_green_1: 456332637
-      slime_green_10: 1672384517
-      slime_green_11: -995140738
-      slime_green_2: 1922541367
-      slime_green_3: 1626715808
-      slime_green_4: -2028071277
-      slime_green_5: -1546886010
-      slime_green_6: 798148837
-      slime_green_7: -1883097991
-      slime_green_8: 2040575405
-      slime_green_9: -2007481545
+      Bat_0: 1469097202
+      Bat_1: 933641828
+      Bat_10: 613992883
+      Bat_11: 770036148
+      Bat_12: -2009116085
+      Bat_13: -1333774741
+      Bat_14: 1661830194
+      Bat_2: -1063202345
+      Bat_3: -330719526
+      Bat_4: -398734067
+      Bat_5: -206597102
+      Bat_6: 1828491421
+      Bat_7: 993792403
+      Bat_8: 1808733908
+      Bat_9: -739434284
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

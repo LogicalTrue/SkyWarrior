@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class playerController : MonoBehaviour
@@ -16,7 +15,7 @@ public class playerController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
 
     // --- Variables de Vida y Daño ---
-    [SerializeField] private Image barraDeVida;
+    // (Borramos barraDeVida porque ahora lo maneja el Singleton)
     [SerializeField] private float vidaMaxima = 100f;
     private float vidaActual;
     private bool isDead = false;
@@ -37,6 +36,7 @@ public class playerController : MonoBehaviour
     // --- Referencias a otros Scripts ---
     [Header("Referencias")]
     public followCamera cameraScript;
+    public gameManager gameManager; // REFERENCIA NUEVA PARA EL CARTEL
 
     void Start()
     {
@@ -157,9 +157,10 @@ public class playerController : MonoBehaviour
 
         vidaActual = Mathf.Max(0, vidaActual - danio);
 
-        if (barraDeVida != null)
+        // CONEXIÓN CON LA UI DE VIDA (La barra fantasma y el temblor)
+        if (HealthBarUI.instance != null)
         {
-            barraDeVida.fillAmount = vidaActual / vidaMaxima;
+            HealthBarUI.instance.ActualizarVida(vidaActual, vidaMaxima);
         }
 
         StartCoroutine(FlashRed());
@@ -184,6 +185,26 @@ public class playerController : MonoBehaviour
 
             // Mantiene la rotación fija para que no vuelque al caer.
             rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+            // --- LLAMADO AL GAME OVER CON DEMORA ---
+            // Esperamos 1.5 segundos para que se vea la animación de muerte y caída
+            if (gameManager != null)
+            {
+                Invoke("ActivarCartel", 0.8f);
+            }
         }
+    }
+
+    // Función auxiliar para activar el cartel después del Invoke
+void ActivarCartel()
+    {
+        // OPCIÓN A (Usando la variable arrastrada):
+        if(gameManager != null) 
+        {
+             gameManager.GameOver(); // <--- Cambié 'MostrarGameOver' por 'GameOver'
+        }
+        
+        // OPCIÓN B (Usando Singleton, más seguro y sin arrastrar nada):
+        // gameManager.instance?.GameOver();
     }
 }

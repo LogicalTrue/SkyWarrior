@@ -29,6 +29,60 @@ public class Enemy : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Collider2D col;
 
+    // --- VARIABLE PARA MARCAR SI ES EL BOSS ---
+    [Header("Condición de Victoria")]
+    public bool esJefe = false;
+
+    // --- NUEVO: SISTEMA DE DISPARO ---
+    [Header("Ataque a Distancia")]
+    public GameObject bolaFuegoPrefab; // Arrastrá el prefab acá
+    public Transform puntoDisparo;     // Desde dónde sale el fuego (la boca)
+    public float tiempoEntreDisparos = 2f;
+    private float tiempoSiguienteDisparo;
+    // ---------------------------------
+
+private bool IsTouchingWall()
+    {
+        // 1. Calculamos la dirección (si mira a la derecha o izquierda)
+        float sentidoVisual = transform.localScale.x > 0 ? 1f : -1f;
+        Vector2 direccionReal = Vector2.right * sentidoVisual;
+
+        // 2. Tiramos el rayo
+        RaycastHit2D hit = Physics2D.Raycast(wallCheck.position, direccionReal, wallDistance, ground);
+
+        // --- DEBUG VISUAL (Línea roja/verde en la escena) ---
+        Color colorRayo = hit.collider != null ? Color.green : Color.red;
+        Debug.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(direccionReal * wallDistance), colorRayo);
+
+        // --- DEBUG CONSOLA (Para saber con qué choca) ---
+        if (hit.collider != null)
+        {
+            // Esto nos va a decir la verdad en la consola
+            Debug.Log("El murciélago tocó: " + hit.collider.gameObject.name);
+        }
+        // ------------------------------------------------
+
+        return hit.collider != null;
+    }
+
+void Disparar()
+    {
+        if (bolaFuegoPrefab != null && puntoDisparo != null)
+        {
+            // 1. Verificamos hacia dónde mira el enemigo (por su escala)
+            // Si la escala X es positiva, mira a la derecha. Si es negativa, izquierda.
+            float direccion = Mathf.Sign(transform.localScale.x);
+            
+            // 2. Calculamos la rotación
+            // Si mira a la derecha (1), rotación cero.
+            // Si mira a la izquierda (-1), rotación de 180 grados en Y.
+            Quaternion rotacionBala = (direccion > 0) ? Quaternion.identity : Quaternion.Euler(0, 180, 0);
+
+            // 3. Instanciamos la bola con esa rotación calculada
+            Instantiate(bolaFuegoPrefab, puntoDisparo.position, rotacionBala);
+        }
+    }
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -53,6 +107,12 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         if (isDead) return;
+
+        if (esJefe && Time.time > tiempoSiguienteDisparo)
+        {
+            Disparar();
+            tiempoSiguienteDisparo = Time.time + tiempoEntreDisparos;
+        }
 
         // Animación de caminar
         animator.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
@@ -93,32 +153,7 @@ public class Enemy : MonoBehaviour
         return Physics2D.Raycast(ray.position, Vector2.down, groundDistance, ground);
     }
 
-    private bool IsTouchingWall()
-    {
-        // 1. Determinamos la dirección REAL basada en el dibujo (Scale)
-        // Si la escala X es positiva, mira a la derecha. Si es negativa, izquierda.
-        float sentidoVisual = transform.localScale.x > 0 ? 1f : -1f;
-        Vector2 direccionReal = Vector2.right * sentidoVisual;
 
-        // 2. Tiramos el rayo
-        RaycastHit2D hit = Physics2D.Raycast(wallCheck.position, direccionReal, wallDistance, ground);
-
-        // --- DEBUG VISUAL (Solo para que vos veas qué pasa) ---
-        // Si toca algo, dibuja línea VERDE. Si no, dibuja línea ROJA.
-        Color colorRayo = hit.collider != null ? Color.green : Color.red;
-        Debug.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(direccionReal * wallDistance), colorRayo);
-
-        // Si tocó algo, le decimos a la consola QUÉ tocó (para descubrir si se toca a sí mismo)
-        if (hit.collider != null)
-        {
-            // Si ves en la consola que dice "Enemy" o el nombre de tu bicho, 
-            // es que se está detectando a sí mismo.
-            // Debug.Log("El rayo chocó con: " + hit.collider.name); 
-        }
-        // -----------------------------------------------------
-
-        return hit.collider != null;
-    }
 
     public void TakeDamage(float damage)
     {
@@ -141,12 +176,21 @@ public class Enemy : MonoBehaviour
         col.enabled = false;
 
         // Si tenés un ScoreManager, descomentá esto:
-        // FindObjectOfType<ScoreManager>().AddPoints(pointsOnDeath);
+         FindObjectOfType<ScoreManager>().AddPoints(pointsOnDeath);
 
         if (animator != null)
         {
             animator.SetTrigger("Die");
         }
+
+        // --- NUEVO: LOGICA DE VICTORIA ---
+        if (esJefe)
+        {
+            // Llamamos a la victoria con un pequeño delay (1 segundo)
+            // para poder disfrutar viendo morir al bicho antes del cartel
+            Invoke("LlamarVictoria", 1f);
+        }
+        // --------------------------------
 
         Destroy(gameObject, deathAnimationDuration);
     }
@@ -174,6 +218,17 @@ public class Enemy : MonoBehaviour
             // Calculamos la dirección visual basada en la escala actual para el dibujo
             float lado = transform.localScale.x > 0 ? 1 : -1;
             Gizmos.DrawLine(wallCheck.position, wallCheck.position + Vector3.right * lado * wallDistance);
+        }
+    }
+
+    void LlamarVictoria()
+    {
+        // Asegurate de que tu script se llame 'gameManager' (con minúscula) 
+        // o 'GameManager' (con mayúscula) según como lo tengas guardado.
+        // Basado en tu último código, usaste minúscula:
+        if (gameManager.instance != null)
+        {
+            gameManager.instance.Victory();
         }
     }
 }

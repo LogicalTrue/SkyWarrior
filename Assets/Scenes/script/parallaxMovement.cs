@@ -5,95 +5,82 @@ using UnityEngine;
 public class parallaxMovement : MonoBehaviour
 {
     [Header("Configuración General")]
-    public Transform followCam; // Tu cámara
+    public Transform followCam;
     [Range(0.01f, 1f)]
-    public float parallaxSpeed = 0.5f; // Velocidad general
-    public float fadeDuration = 2.0f; // Cuánto tarda en desaparecer/aparecer
+    public float parallaxSpeed = 0.5f;
+    public float fadeDuration = 2.0f;
 
-    [Header("Capas (Arrastralas acá manualmente)")]
-    // Usamos listas para saber qué sprite es de qué bioma
+    [Header("Capas")]
     public List<Renderer> forestLayers;
     public List<Renderer> desertLayers;
 
-    // Estado interno
+    [Header("Clima")]
+    public ParticleSystem hojasFX;
+    public ParticleSystem polvoFX;
+
+    // Variables internas
     private Transform cam;
     private Vector3 camStartPos;
     private float farthestBack;
-    
-    // Diccionario para guardar la velocidad calculada de CADA renderer individualmente
     private Dictionary<Renderer, float> layerSpeeds = new Dictionary<Renderer, float>();
-
-    // Control de transición (true = bosque, false = desierto)
+    
     private bool showingForest = true;
-    private float transitionAlpha = 0.0f; // 0 = Todo Bosque, 1 = Todo Desierto
+    private float transitionAlpha = 0.0f; 
 
     void Start()
     {
         cam = followCam;
         camStartPos = cam.position;
 
-        // 1. Calculamos cuál es la capa más lejana de TODAS (bosque y desierto combinados)
         CalculateFarthestBack();
-
-        // 2. Calculamos velocidades para TODAS las capas en base a esa distancia
         CalculateSpeeds(forestLayers);
         CalculateSpeeds(desertLayers);
 
-        // 3. Inicializamos visibilidad (arrancamos mostrando el bosque)
         transitionAlpha = 0.0f; 
-        UpdateAlpha();
+        UpdateMaterialsAlpha();
+
+        // INICIO: Hojas prendidas, Polvo apagado (pero corriendo con emisión 0)
+        if (hojasFX != null) hojasFX.Play();
+        if (polvoFX != null)
+        {
+            polvoFX.Play();
+            var emission = polvoFX.emission;
+            emission.rateOverTime = 0; // Arranca sin tirar polvo
+        }
     }
+
+    // ... (CalculateFarthestBack, CalculateSpeeds y LateUpdate QUEDAN IGUAL) ...
+    // ... (Solo copio lo que cambia para no llenarte de texto, mantené tus funciones de calculo) ...
 
     void CalculateFarthestBack()
     {
+        // (Tu código de siempre aquí)
         farthestBack = 0;
-        // Revisamos bosque
-        foreach (var r in forestLayers)
-        {
-            float dist = r.transform.position.z - cam.position.z;
-            if (dist > farthestBack) farthestBack = dist;
-        }
-        // Revisamos desierto
-        foreach (var r in desertLayers)
-        {
-            float dist = r.transform.position.z - cam.position.z;
-            if (dist > farthestBack) farthestBack = dist;
-        }
+        foreach (var r in forestLayers) { if ((r.transform.position.z - cam.position.z) > farthestBack) farthestBack = r.transform.position.z - cam.position.z; }
+        foreach (var r in desertLayers) { if ((r.transform.position.z - cam.position.z) > farthestBack) farthestBack = r.transform.position.z - cam.position.z; }
     }
 
     void CalculateSpeeds(List<Renderer> layers)
     {
-        foreach (var r in layers)
-        {
+        // (Tu código de siempre aquí)
+        foreach (var r in layers) {
             float dist = r.transform.position.z - cam.position.z;
-            // Evitamos división por cero si farthestBack es 0
             float speed = (farthestBack > 0) ? 1 - (dist / farthestBack) : 0;
-            
-            // Guardamos la velocidad asociada a este renderer especifico en el diccionario
-            if(!layerSpeeds.ContainsKey(r))
-            {
-                layerSpeeds.Add(r, speed);
-            }
+            if(!layerSpeeds.ContainsKey(r)) layerSpeeds.Add(r, speed);
         }
     }
 
     void LateUpdate()
     {
-        // --- 1. Movimiento (Mueve TODO, aunque sea invisible) ---
-        // Esto asegura que cuando aparezca el desierto, ya esté en la posición correcta
         float dist = cam.position.x - camStartPos.x;
-        
         ApplyParallax(forestLayers, dist);
         ApplyParallax(desertLayers, dist);
 
-        // --- 2. Transición de Alpha (Fade in / Fade out) ---
         float target = showingForest ? 0.0f : 1.0f;
-        
-        // Si no hemos llegado al objetivo de transparencia, interpolamos
         if (Mathf.Abs(transitionAlpha - target) > 0.01f)
         {
             transitionAlpha = Mathf.MoveTowards(transitionAlpha, target, Time.deltaTime / fadeDuration);
-            UpdateAlpha();
+            UpdateMaterialsAlpha();
         }
     }
 
@@ -104,17 +91,14 @@ public class parallaxMovement : MonoBehaviour
             if (layerSpeeds.ContainsKey(r))
             {
                 float speed = layerSpeeds[r] * parallaxSpeed;
-                // Movemos la textura (offset) igual que en tu script original
                 r.material.SetTextureOffset("_MainTex", new Vector2(distance, 0) * speed);
             }
         }
     }
 
-    void UpdateAlpha()
+    void UpdateMaterialsAlpha()
     {
-        // Forest se ve cuando transitionAlpha es 0
         float forestAlpha = 1.0f - transitionAlpha;
-        // Desert se ve cuando transitionAlpha es 1
         float desertAlpha = transitionAlpha;
 
         SetLayerAlpha(forestLayers, forestAlpha);
@@ -125,24 +109,41 @@ public class parallaxMovement : MonoBehaviour
     {
         foreach (var r in layers)
         {
-            // OJO: Tu material debe soportar transparencia (Rendering Mode: Fade o Transparent)
             Color c = r.material.color;
             c.a = alpha;
             r.material.color = c;
         }
     }
 
-    // --- MÉTODOS PÚBLICOS PARA LLAMAR DESDE EL TRIGGER ---
-    
-    // Llamar a este cuando tocas el floor_4
+    // --- ACÁ ESTÁ LA MAGIA DE LA TRANSICIÓN SUAVE ---
+
     public void SwitchToDesert()
     {
         showingForest = false;
+
+        // Hojas: Stop (Dejan de nacer, las viejas caen hasta morir)
+        if (hojasFX != null) hojasFX.Stop(); 
+
+        // Polvo: Subimos la emisión para que empiece a aparecer de a poco
+        if (polvoFX != null)
+        {
+            var emission = polvoFX.emission;
+            emission.rateOverTime = 50; // Cantidad de polvo deseada
+        }
     }
 
-    // Llamar a este si volvés para atrás
     public void SwitchToForest()
     {
         showingForest = true;
+
+        // Hojas: Play (Empiezan a caer de nuevo)
+        if (hojasFX != null) hojasFX.Play();
+
+        // Polvo: Bajamos la emisión a 0 (Dejan de nacer, las viejas se van yendo)
+        if (polvoFX != null)
+        {
+            var emission = polvoFX.emission;
+            emission.rateOverTime = 0;
+        }
     }
 }

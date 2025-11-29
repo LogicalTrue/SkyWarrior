@@ -15,7 +15,7 @@ TagManager:
   - UI
   - Enemy
   - Player
-  - 
+  - Proyectil
   - 
   - 
   - 
@@ -42,4 +42,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UI
+    uniqueID: 125921771
+    locked: 0
+  - name: Particle
+    uniqueID: 3985776297
     locked: 0
